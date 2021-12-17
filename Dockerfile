@@ -7,10 +7,10 @@ RUN apt update && \
     gzip bzip2 perl tar cpio unzip rsync file bc wget libncurses-dev \
     && rm -rf /var/lib/apt/lists/* 
 ARG BUILDROOT_VERSION
-RUN wget https://buildroot.org/downloads/buildroot-$BUILDROOT_VERSION.tar.gz \
-    && tar xf buildroot-$BUILDROOT_VERSION.tar.gz -C /home \
-    && rm buildroot-$BUILDROOT_VERSION.tar.gz
-WORKDIR /home/buildroot-$BUILDROOT_VERSION
+RUN wget https://buildroot.org/downloads/buildroot-${BUILDROOT_VERSION}.tar.gz \
+    && tar xf buildroot-${BUILDROOT_VERSION}.tar.gz -C /home \
+    && rm buildroot-${BUILDROOT_VERSION}.tar.gz
+WORKDIR /home/buildroot-${BUILDROOT_VERSION}
 RUN make nezha_defconfig
 CMD [ "/bin/bash" ]
 
