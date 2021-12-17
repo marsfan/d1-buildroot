@@ -48,7 +48,7 @@ jobs:
         with:
           context: .
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/d1-buildroot:${{ matrix.buildroot-version }}-base
+            ${{ env.DOCKER_USERNAME }}/d1-buildroot:${{ matrix.buildroot-version }}-base
             ghcr.io/${{ github.actor }}/d1-buildroot:${{ matrix.buildroot-version }}-base
           push: false
           target: base
@@ -60,7 +60,7 @@ jobs:
         with:
           context: .
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/d1-buildroot:${{ matrix.buildroot-version }}-toolchain
+            ${{ env.DOCKER_USERNAME }}/d1-buildroot:${{ matrix.buildroot-version }}-toolchain
             ghcr.io/${{ github.actor }}/d1-buildroot:${{ matrix.buildroot-version }}-toolchain
           push: false
           target: toolchain
@@ -72,7 +72,7 @@ jobs:
         with:
           context: .
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/d1-buildroot:${{ matrix.buildroot-version }}-prebuilt
+            ${{ env.DOCKER_USERNAME }}/d1-buildroot:${{ matrix.buildroot-version }}-prebuilt
             ghcr.io/${{ github.actor }}/d1-buildroot:${{ matrix.buildroot-version }}-prebuilt
           push: false
           target: prebuilt
