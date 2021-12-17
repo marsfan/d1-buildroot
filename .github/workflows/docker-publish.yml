@@ -53,7 +53,7 @@ jobs:
           push: false
           target: base
           load: true
-          build-arg:
+          build-args:
             BUILDROOT_VERSION = ${{ matrix.buildroot-version }}
       
       - name: Build Toolchain
@@ -66,7 +66,7 @@ jobs:
           push: false
           target: toolchain
           load: true
-          build-arg:
+          build-args:
             BUILDROOT_VERSION = ${{ matrix.buildroot-version }}
 
       - name: Build Linux Image
@@ -79,5 +79,5 @@ jobs:
           push: false
           target: prebuilt
           load: true
-          build-arg:
+          build-args:
             BUILDROOT_VERSION = ${{ matrix.buildroot-version }}
