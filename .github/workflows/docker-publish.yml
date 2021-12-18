@@ -110,6 +110,23 @@ jobs:
         with:
           sarif_file: 'trivy-results.sarif'
 
+        # Rootfs.ext4 is a symlink to rootfs.ext2.
+        # For windows users, I am deleting rootfs.ext4 symlink and copying rootfs.ext2
+      - name: Get Target Images from Container
+        run: |
+          docker create --name testcontainer ${{ env.DOCKER_USERNAME }}/d1-buildroot:${{ matrix.buildroot-version }}-prebuilt
+          docker cp testcontainer:/home/buildroot-2021.11/output/images d1-image
+          rm d1-images/rootfs.ext4 
+          cp d1-images/rootfs.ext2  d1-images/rootfs.ext4 
+          docker container rm testcontainer
+  
+
+      - name: Save Prebuilt Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: d1-image-${{ matrix.buildroot-version }}
+          path: d1-image/
+
       - name: Push Containers to Docker Hub
         run: docker -a push ${{ env.DOCKER_USERNAME }}/d1-buildroot:${{ matrix.buildroot-version }}
 
