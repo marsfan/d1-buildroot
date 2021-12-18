@@ -98,7 +98,7 @@ jobs:
           sarif_file: snyk.sarif
 
       - name: Run Trivy Vulnerability Scanner
-        uses: aquasecurity/trivy-actionaquasecurity/trivy-action@0.2.0
+        uses: aquasecurity/trivy-action@0.2.0
         with:
           image-ref: 'docker.io/${{ env.DOCKER_USERNAME }}/d1-buildroot:${{ matrix.buildroot-version }}-prebuilt'
           format: 'template'
