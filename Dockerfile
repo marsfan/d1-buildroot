@@ -15,7 +15,7 @@ RUN apt update && \
     gzip bzip2 perl tar cpio unzip rsync file bc wget libncurses-dev \
     && apt autoremove --purge -y \
     && rm -rf /var/lib/apt/lists/* 
-ARG BUILDROOT_VERSION
+ARG BUILDROOT_VERSION=2021.11
 RUN wget https://buildroot.org/downloads/buildroot-${BUILDROOT_VERSION}.tar.gz \
     && tar xf buildroot-${BUILDROOT_VERSION}.tar.gz -C /home \
     && rm buildroot-${BUILDROOT_VERSION}.tar.gz
