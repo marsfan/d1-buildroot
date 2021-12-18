@@ -10,8 +10,10 @@ LABEL maintainer="Gabriel Roper <gabrielcroper@gmail.com"
 LABEL license="Mozilla Public License 2.0"
 LABEL source="https://github.com/marsfan/d1-buildroot"
 RUN apt update && \
+    apt upgrade -y && \
     apt install -y sed make binutils build-essential gcc g++ bash patch python3-minimal \
     gzip bzip2 perl tar cpio unzip rsync file bc wget libncurses-dev \
+    && apt autoremove --purge -y \
     && rm -rf /var/lib/apt/lists/* 
 ARG BUILDROOT_VERSION
 RUN wget https://buildroot.org/downloads/buildroot-${BUILDROOT_VERSION}.tar.gz \
