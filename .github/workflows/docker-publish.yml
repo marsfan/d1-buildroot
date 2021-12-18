@@ -3,7 +3,6 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 name: Build Docker Images
 
-
 on:
   schedule:
     - cron: '33 7 * * 0'
@@ -20,7 +19,7 @@ jobs:
 
     strategy:
       matrix: 
-        buildroot-version: [2021.11-rc2, 2021.11-rc3, 2021.11]
+        buildroot-version: [2021.11]
       
     permissions:
       contents: read
@@ -58,8 +57,7 @@ jobs:
           load: true
           build-args: BUILDROOT_VERSION=${{ matrix.buildroot-version }}
 
-      
-      - name: Build Toolchain
+      - name: Build Toolchain Container
         uses: docker/build-push-action@v2.7.0
         with:
           context: .
@@ -71,7 +69,7 @@ jobs:
           load: true
           build-args: BUILDROOT_VERSION=${{ matrix.buildroot-version }}
 
-      - name: Build Linux Image
+      - name: Build Prebuilt Container
         uses: docker/build-push-action@v2.7.0
         with:
           context: .
