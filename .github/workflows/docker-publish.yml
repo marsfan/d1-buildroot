@@ -109,3 +109,9 @@ jobs:
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: 'trivy-results.sarif'
+
+      - name: Push Containers to Docker Hub
+        run: docker -a push ${{ env.DOCKER_USERNAME }}/d1-buildroot:${{ matrix.buildroot-version }}
+
+      - name: Push Containers to GitHub packages
+        run: docker -a push ghcr.io/${{ github.actor }}/d1-buildroot
