@@ -6,6 +6,9 @@
 # NOTE: Use --target argument to specify which stage to stop build at
 # Will allow making multiple containers from one dockerfile
 FROM ubuntu:20.04 as base
+LABEL maintainer="Gabriel Roper <gabrielcroper@gmail.com"
+LABEL license="Mozilla Public License 2.0"
+LABEL source="https://github.com/marsfan/d1-buildroot"
 RUN apt update && \
     apt install -y sed make binutils build-essential gcc g++ bash patch python3-minimal \
     gzip bzip2 perl tar cpio unzip rsync file bc wget libncurses-dev \
