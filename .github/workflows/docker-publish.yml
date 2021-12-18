@@ -80,3 +80,32 @@ jobs:
           target: prebuilt
           load: true
           build-args: BUILDROOT_VERSION=${{ matrix.buildroot-version }}
+
+        # No need to scan other containers, since prebuilt contains them
+      - name: Scan Prebuilt Container with Snyk
+        uses: snyk/actions/docker@0.3.0
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with: 
+          image: ${{ env.DOCKER_USERNAME }}/d1-buildroot:${{ matrix.buildroot-version }}-prebuilt
+          args: --file=Dockerfile
+
+      - name: Upload Snyk Result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: snyk.sarif
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@2a2157eb22c08c9a1fac99263430307b8d1bc7a2
+        with:
+          image-ref: 'docker.io/${{ env.DOCKER_USERNAME }}/d1-buildroot:${{ matrix.buildroot-version }}-prebuilt'
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: 'trivy-results.sarif'
