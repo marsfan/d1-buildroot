@@ -98,20 +98,6 @@ jobs:
         with:
           sarif_file: snyk.sarif
 
-      - name: Run Trivy Vulnerability Scanner
-        uses: aquasecurity/trivy-action@0.2.0
-        with:
-          image-ref: 'docker.io/${{ env.DOCKER_USERNAME }}/d1-buildroot:${{ matrix.buildroot-version }}-prebuilt'
-          format: 'template'
-          template: '@/contrib/sarif.tpl'
-          output: 'trivy-results.sarif'
-          severity: 'CRITICAL,HIGH'
-
-      - name: Upload Trivy Scan Results to GitHub Security Tab
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: 'trivy-results.sarif'
-
         # Rootfs.ext4 is a symlink to rootfs.ext2.
         # For windows users, I am deleting rootfs.ext4 symlink and copying rootfs.ext2
       - name: Get Target Images from Container
