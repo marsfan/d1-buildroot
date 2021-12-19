@@ -1,7 +1,7 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
-name: Build Docker Images
+name: Build Docker Containers
 
 on:
   schedule:
@@ -82,7 +82,7 @@ jobs:
           load: true
           build-args: BUILDROOT_VERSION=${{ matrix.buildroot-version }}
 
-        # No need to scan other containers, since prebuilt contains them
+        # No need to scan other containers, since they are a subset of prebuilt
       - name: Scan Prebuilt Container with Snyk
         uses: snyk/actions/docker@0.3.0
         continue-on-error: true

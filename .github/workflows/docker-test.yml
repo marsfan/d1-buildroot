@@ -1,0 +1,79 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+name: Build Docker Containers
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "*"
+      - "!master" # Run on all branches besides master.
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix: 
+        buildroot-version: [2021.11]
+      
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        
+      - name: Docker Setup Buildx
+        uses: docker/setup-buildx-action@v1.6.0
+          
+      - name: Build Base Image
+        uses: docker/build-push-action@v2.7.0
+        with:
+          context: .
+          tags:  d1-buildroot:${{ matrix.buildroot-version }}-base
+          push: false
+          target: base
+          load: true
+          build-args: BUILDROOT_VERSION=${{ matrix.buildroot-version }}
+
+      - name: Build Toolchain Container
+        uses: docker/build-push-action@v2.7.0
+        with:
+          context: .
+          tags: d1-buildroot:${{ matrix.buildroot-version }}-toolchain
+          push: false
+          target: toolchain
+          load: true
+          build-args: BUILDROOT_VERSION=${{ matrix.buildroot-version }}
+
+      - name: Build Prebuilt Container
+        uses: docker/build-push-action@v2.7.0
+        with:
+          context: .
+          tags: d1-buildroot:${{ matrix.buildroot-version }}-prebuilt
+          push: false
+          target: prebuilt
+          load: true
+          build-args: BUILDROOT_VERSION=${{ matrix.buildroot-version }}
+
+        # Rootfs.ext4 is a symlink to rootfs.ext2.
+        # For windows users, I am deleting rootfs.ext4 symlink and copying rootfs.ext2
+      - name: Get Target Images from Container
+        run: |
+          docker create --name testcontainer d1-buildroot:${{ matrix.buildroot-version }}-prebuilt
+          docker cp testcontainer:/home/buildroot-2021.11/output/images d1-image
+          rm d1-images/rootfs.ext4 
+          cp d1-images/rootfs.ext2  d1-images/rootfs.ext4 
+          docker container rm testcontainer
+  
+      - name: Save Prebuilt Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: d1-image-${{ matrix.buildroot-version }}
+          path: d1-image/
