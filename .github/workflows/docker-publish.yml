@@ -13,9 +13,6 @@ on:
 jobs:
   build-and-deploy:
 
-    permissions:
-      security-events: write
-
     runs-on: ubuntu-latest
     env: 
       DOCKER_USERNAME: barrowwight
@@ -27,6 +24,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      security-events: write
 
     steps:
 
