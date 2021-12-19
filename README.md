@@ -1,6 +1,6 @@
 # D1 Buildroot
 
-[![Build Docker Containers](https://github.com/marsfan/d1-buildroot/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/marsfan/d1-buildroot/actions/workflows/docker-publish.yml)
+[![Build Containers](https://github.com/marsfan/d1-buildroot/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/marsfan/d1-buildroot/actions/workflows/docker-publish.yml)
 
 This repository contains the files necessary to create Docker containers
 that can then be used to build Linux Images for the D1 Nezha
