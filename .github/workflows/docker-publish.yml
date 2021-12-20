@@ -116,7 +116,7 @@ jobs:
           path: d1-image/
 
       - name: Push Containers to Docker Hub
-        run: docker push -a ${{ env.DOCKER_USERNAME }}/d1-buildroot:${{ matrix.buildroot-version }}
+        run: docker push -a ${{ env.DOCKER_USERNAME }}/d1-buildroot
 
       - name: Push Containers to GitHub packages
         run: docker push -a ghcr.io/${{ github.actor }}/d1-buildroot
