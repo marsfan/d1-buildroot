@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix: 
-        buildroot-version: [2021.11]
+        buildroot-version: [2021.11, 2022.02]
       
     permissions:
       contents: read
