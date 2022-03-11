@@ -103,7 +103,7 @@ jobs:
       - name: Get Target Images from Container
         run: |
           docker create --name testcontainer ${{ env.DOCKER_USERNAME }}/d1-buildroot:${{ matrix.buildroot-version }}-prebuilt
-          docker cp testcontainer:/home/buildroot-2021.11/output/images d1-image
+          docker cp testcontainer:/home/buildroot-${{ matrix.buildroot-version }}/output/images d1-image
           rm d1-image/rootfs.ext4 
           cp d1-image/rootfs.ext2  d1-image/rootfs.ext4 
           docker container rm testcontainer
