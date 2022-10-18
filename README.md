@@ -1,5 +1,8 @@
 # D1 Buildroot
 
+
+**NOTE: I'm currently not keeping a close eye on this repository and updating it for all new buildroot releases. If you would like a different buildroot release added to the system, please open an issue and I will add it**
+
 [![Build Containers](https://github.com/marsfan/d1-buildroot/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/marsfan/d1-buildroot/actions/workflows/docker-publish.yml)
 
 This repository contains the files necessary to create Docker containers
