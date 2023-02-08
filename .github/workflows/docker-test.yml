@@ -17,9 +17,9 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      matrix: 
-        buildroot-version: [2021.11, 2022.02, 2022.02.1, 2022.02.6]
-      
+      matrix:
+        buildroot-version: [2021.11, 2022.02, 2022.02.1, 2022.02.6, 2022.02.9, 2022.11.1]
+
     permissions:
       contents: read
       packages: write
@@ -28,10 +28,10 @@ jobs:
 
       - name: Checkout Repository
         uses: actions/checkout@v3
-        
+
       - name: Docker Setup Buildx
         uses: docker/setup-buildx-action@v2.4.1
-          
+
       - name: Build Base Image
         uses: docker/build-push-action@v4.0.0
         with:
@@ -68,10 +68,10 @@ jobs:
         run: |
           docker create --name testcontainer d1-buildroot:${{ matrix.buildroot-version }}-prebuilt
           docker cp testcontainer:/home/buildroot-${{ matrix.buildroot-version }}/output/images d1-image
-          rm d1-image/rootfs.ext4 
-          cp d1-image/rootfs.ext2  d1-image/rootfs.ext4 
+          rm d1-image/rootfs.ext4
+          cp d1-image/rootfs.ext2  d1-image/rootfs.ext4
           docker container rm testcontainer
-  
+
       - name: Save Prebuilt Artifacts
         uses: actions/upload-artifact@v3
         with:
