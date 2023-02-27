@@ -85,7 +85,7 @@ jobs:
 
         # No need to scan other containers, since they are a subset of prebuilt
       - name: Scan Prebuilt Container with Snyk
-        uses: snyk/actions/docker@0.3.0
+        uses: snyk/actions/docker@master
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
