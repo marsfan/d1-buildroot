@@ -48,7 +48,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Base Image
-        uses: docker/build-push-action@v4.0.0
+        uses: docker/build-push-action@v4.1.0
         with:
           context: .
           tags: |
@@ -60,7 +60,7 @@ jobs:
           build-args: BUILDROOT_VERSION=${{ matrix.buildroot-version }}
 
       - name: Build Toolchain Container
-        uses: docker/build-push-action@v4.0.0
+        uses: docker/build-push-action@v4.1.0
         with:
           context: .
           tags: |
@@ -72,7 +72,7 @@ jobs:
           build-args: BUILDROOT_VERSION=${{ matrix.buildroot-version }}
 
       - name: Build Prebuilt Container
-        uses: docker/build-push-action@v4.0.0
+        uses: docker/build-push-action@v4.1.0
         with:
           context: .
           tags: |
