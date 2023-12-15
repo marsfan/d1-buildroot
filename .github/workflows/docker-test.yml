@@ -73,7 +73,7 @@ jobs:
           docker container rm testcontainer
 
       - name: Save Prebuilt Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: d1-image-${{ matrix.buildroot-version }}
           path: d1-image/
