@@ -33,7 +33,7 @@ jobs:
         uses: docker/setup-buildx-action@v3.0.0
 
       - name: Build Base Image
-        uses: docker/build-push-action@v5.1.0
+        uses: docker/build-push-action@v5.2.0
         with:
           context: .
           tags:  d1-buildroot:${{ matrix.buildroot-version }}-base
@@ -43,7 +43,7 @@ jobs:
           build-args: BUILDROOT_VERSION=${{ matrix.buildroot-version }}
 
       - name: Build Toolchain Container
-        uses: docker/build-push-action@v5.1.0
+        uses: docker/build-push-action@v5.2.0
         with:
           context: .
           tags: d1-buildroot:${{ matrix.buildroot-version }}-toolchain
@@ -53,7 +53,7 @@ jobs:
           build-args: BUILDROOT_VERSION=${{ matrix.buildroot-version }}
 
       - name: Build Prebuilt Container
-        uses: docker/build-push-action@v5.1.0
+        uses: docker/build-push-action@v5.2.0
         with:
           context: .
           tags: d1-buildroot:${{ matrix.buildroot-version }}-prebuilt
