@@ -110,7 +110,7 @@ jobs:
 
 
       - name: Save Prebuilt Artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: d1-image-${{ matrix.buildroot-version }}
           path: d1-image/
