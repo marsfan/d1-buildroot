@@ -30,7 +30,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Docker Setup Buildx
-        uses: docker/setup-buildx-action@v4.0.0
+        uses: docker/setup-buildx-action@v4.1.0
 
       - name: Build Base Image
         uses: docker/build-push-action@v7.0.0
